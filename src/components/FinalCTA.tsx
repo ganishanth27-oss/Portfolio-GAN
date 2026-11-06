@@ -14,9 +14,10 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
   const opacity = useTransform(scrollYProgress, [0.1, 0.9], [0, 1]);
 
   const ctas = [
-    { label: "Let's Build", href: `mailto:${profile.email}?subject=${encodeURIComponent("Let's build something")}`, primary: true, cursor: 'play' },
+    { label: "Let's Build", href: `mailto:${profile.email}?subject=${encodeURIComponent("Let's connect / Job Opportunity")}`, primary: true, cursor: 'play' },
     { label: 'LinkedIn', href: profile.links.linkedin, cursor: 'link' },
     { label: 'GitHub', href: profile.links.github, cursor: 'link' },
+    { label: 'LeetCode', href: profile.links.leetcode, cursor: 'link' },
     { label: 'Email', href: `mailto:${profile.email}`, cursor: 'link' },
   ];
 
@@ -31,7 +32,7 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        Let's Connect
+        Let&apos;s Connect
       </motion.p>
       <motion.h2
         className="relative font-display leading-[0.85] text-bone"
@@ -41,14 +42,16 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
       </motion.h2>
 
       <motion.div
-        className="relative mt-12"
+        className="relative mt-8"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-10% 0px' }}
         transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
       >
         <p className="font-sans text-2xl font-semibold tracking-[0.2em] text-bone sm:text-3xl">{profile.displayName.toUpperCase()}</p>
-        <p className="mt-2 text-xs font-semibold tracking-[0.4em] text-mist sm:text-sm">{profile.role.toUpperCase()}</p>
+        <p className="mt-2 text-xs font-semibold tracking-[0.4em] text-crimson-2 sm:text-sm">{profile.role.toUpperCase()}</p>
+        <p className="mt-3 text-sm text-mist">{profile.location} • {profile.phone}</p>
+        <p className="mt-1 text-sm text-bone font-mono">{profile.email}</p>
       </motion.div>
 
       <motion.div
@@ -93,7 +96,7 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
           <SeriesMark />
         </div>
         <p className="text-[11px] leading-relaxed text-smoke">
-          © {new Date().getFullYear()} {profile.displayName}. Personal developer portfolio.
+          © {new Date().getFullYear()} {profile.displayName}. Software Developer Portfolio.
         </p>
       </footer>
     </section>

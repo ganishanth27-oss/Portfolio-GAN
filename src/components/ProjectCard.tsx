@@ -66,6 +66,18 @@ export default function ProjectCard({ project, index, onOpen }: { project: Proje
                   GitHub ↗
                 </a>
               )}
+              {project.live && (
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-cursor="link"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex min-h-11 items-center gap-2 rounded-md border border-[#38ef7d]/40 bg-black/30 px-4 text-sm font-semibold text-[#38ef7d] backdrop-blur transition hover:border-[#38ef7d] hover:bg-[#38ef7d]/10"
+                >
+                  Live Demo ↗
+                </a>
+              )}
             </div>
           </div>
         </div>

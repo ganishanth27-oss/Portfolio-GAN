@@ -20,9 +20,9 @@ export default function ResumeSection({ onView }: { onView: () => void }) {
         </motion.div>
 
         <div className="lg:sticky lg:top-28 lg:self-start">
-          <p className="font-serif text-3xl italic leading-tight text-bone">Every episode, on one page.</p>
+          <p className="font-serif text-3xl italic leading-tight text-bone">Every milestone, on one page.</p>
           <p className="mt-3 text-sm leading-relaxed text-mist">
-            Education, training, projects, achievements and {certifications.length} certifications — view it here or take a copy with you.
+            Education, internship at DG Interns Hub, {projects.length} featured projects, hackathons and NPTEL certification — view it here or download a copy.
           </p>
           <div className="mt-6 flex flex-col gap-3">
             <Magnetic className="w-full">
@@ -48,9 +48,9 @@ export default function ResumeSection({ onView }: { onView: () => void }) {
           </div>
           <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-xl bg-white/10 text-center">
             {[
-              { v: education[0].score.replace('CGPA ', ''), k: 'CGPA' },
+              { v: '9.29', k: 'CGPA' },
               { v: String(projects.length), k: 'Projects' },
-              { v: String(certifications.length), k: 'Certs' },
+              { v: '3+', k: 'Hackathons' },
             ].map((s) => (
               <div key={s.k} className="bg-ink-2 px-2 py-4">
                 <dd className="font-display text-3xl leading-none text-bone">{s.v}</dd>
@@ -95,26 +95,40 @@ export function ResumeSheet() {
         <div>
           <p className="text-[10px] font-bold tracking-[0.34em] text-smoke">STARRING</p>
           <h3 className="mt-1 font-display text-[clamp(1.9rem,4.4vw,3.2rem)] leading-[0.9] tracking-wide text-bone">{profile.fullName}</h3>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson-2">{profile.role}</p>
         </div>
         <div className="text-xs leading-relaxed text-mist sm:text-right">
           <a href={`mailto:${profile.email}`} className="block hover:text-bone">
             {profile.email}
           </a>
-          <a href={profile.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-bone">
-            LinkedIn ↗
-          </a>
-          {' · '}
-          <a href={profile.links.github} target="_blank" rel="noreferrer" className="hover:text-bone">
-            GitHub ↗
-          </a>
+          <span className="block text-smoke">{profile.phone} • {profile.location}</span>
+          <div className="mt-1">
+            <a href={profile.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-bone">
+              LinkedIn ↗
+            </a>
+            {' · '}
+            <a href={profile.links.github} target="_blank" rel="noreferrer" className="hover:text-bone">
+              GitHub ↗
+            </a>
+            {' · '}
+            <a href={profile.links.leetcode} target="_blank" rel="noreferrer" className="hover:text-bone">
+              LeetCode ↗
+            </a>
+          </div>
         </div>
       </header>
+
+      {/* Professional Summary */}
+      <div className="mb-6 rounded-lg bg-white/[0.02] p-4 ring-1 ring-white/5">
+        <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-smoke">Professional Summary</p>
+        <p className="mt-2 text-xs leading-relaxed text-bone/80">{profile.intro}</p>
+      </div>
 
       <div className="grid gap-x-10 md:grid-cols-[1.4fr_1fr]">
         <div>
           <H>Education</H>
           {education.map((e) => (
-            <div key={e.school} className="mb-4">
+            <div key={e.degree} className="mb-4">
               <div className="flex flex-wrap justify-between gap-x-3">
                 <p className="text-sm font-semibold text-bone">
                   {e.school}, {e.place}
@@ -122,12 +136,12 @@ export function ResumeSheet() {
                 <p className="text-xs text-smoke">{e.period}</p>
               </div>
               <p className="text-xs text-mist">
-                {e.degree} · <span className="text-bone/80">{e.score}</span>
+                {e.degree} · <span className="font-semibold text-bone">{e.score}</span>
               </p>
             </div>
           ))}
 
-          <H>Work Experience</H>
+          <H>Internship Experience</H>
           {experience.map((x) => (
             <div key={x.company}>
               <div className="flex flex-wrap justify-between gap-x-3">
@@ -147,21 +161,23 @@ export function ResumeSheet() {
             </div>
           ))}
 
-          <H>Projects</H>
+          <H>Featured Projects</H>
           {projects.map((p) => (
-            <div key={p.id} className="mb-3">
+            <div key={p.id} className="mb-4">
               <div className="flex flex-wrap justify-between gap-x-3">
                 <p className="text-sm font-semibold text-bone">{p.title}</p>
                 <p className="text-xs text-smoke">{p.year}</p>
               </div>
-              <p className="text-xs text-mist">{p.stack.join(', ')}</p>
+              <p className="text-xs text-crimson-2 font-medium">{p.genre}</p>
+              <p className="mt-0.5 text-xs text-mist">{p.logline}</p>
+              <p className="mt-1 text-[11px] font-mono text-smoke">Stack: {p.stack.join(', ')}</p>
             </div>
           ))}
         </div>
 
         <div>
-          <H>Skills</H>
-          <div className="space-y-2">
+          <H>Technical Skills</H>
+          <div className="space-y-2.5">
             {skillCategories.map((c) => (
               <p key={c.id} className="text-xs leading-relaxed text-mist">
                 <span className="font-semibold text-bone">{c.title}: </span>
@@ -170,12 +186,12 @@ export function ResumeSheet() {
             ))}
           </div>
 
-          <H>Achievements</H>
-          <ul className="space-y-2">
+          <H>Hackathons & Competitions</H>
+          <ul className="space-y-2.5">
             {achievements.map((a) => (
               <li key={a.id} className="text-xs leading-relaxed text-mist">
                 <span className="font-semibold text-bone">
-                  {a.title} — {a.org}.
+                  {a.title} ({a.laurel}) — {a.org}.
                 </span>{' '}
                 {a.detail}
               </li>
@@ -184,9 +200,17 @@ export function ResumeSheet() {
 
           <H>Certifications</H>
           <p className="text-xs leading-relaxed text-mist">
-            {Array.from(new Set(certifications.map((c) => c.issuer)))
-              .map((iss) => `${iss}: ${certifications.filter((c) => c.issuer === iss).map((c) => c.name).join(', ')}`)
-              .join(' · ')}
+            {certifications.map((c) => `${c.issuer}: ${c.name}`).join(' · ')}
+          </p>
+
+          <H>Soft Skills & Languages</H>
+          <p className="text-xs text-mist">
+            <span className="font-semibold text-bone">Soft Skills: </span>
+            {profile.softSkills.join(', ')}
+          </p>
+          <p className="mt-1.5 text-xs text-mist">
+            <span className="font-semibold text-bone">Languages: </span>
+            {profile.spokenLanguages.join(', ')}
           </p>
         </div>
       </div>

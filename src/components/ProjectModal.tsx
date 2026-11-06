@@ -91,8 +91,8 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
               {project.logline}
             </motion.p>
 
-            {project.github && (
-              <motion.div variants={block} className="mt-6 flex flex-wrap gap-3">
+            <motion.div variants={block} className="mt-6 flex flex-wrap gap-3">
+              {project.github && (
                 <Magnetic>
                   <a
                     href={project.github}
@@ -104,13 +104,26 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
                     GitHub ↗
                   </a>
                 </Magnetic>
-              </motion.div>
-            )}
+              )}
+              {project.live && (
+                <Magnetic>
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-cursor="link"
+                    className="flex min-h-12 items-center gap-2 rounded-md border border-[#38ef7d]/50 bg-[#38ef7d]/15 px-6 text-[15px] font-bold text-[#38ef7d] transition hover:bg-[#38ef7d]/25"
+                  >
+                    Live Website ↗
+                  </a>
+                </Magnetic>
+              )}
+            </motion.div>
 
-            {/* impact */}
+            {/* highlights / metrics */}
             <motion.section variants={block} className="mt-12">
-              <h3 className="mb-4 text-[11px] font-bold uppercase tracking-[0.3em] text-crimson-2">Result / Impact</h3>
-              <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-white/10 sm:grid-cols-3 lg:grid-cols-5">
+              <h3 className="mb-4 text-[11px] font-bold uppercase tracking-[0.3em] text-crimson-2">Highlights & Architecture</h3>
+              <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-white/10 sm:grid-cols-4">
                 {project.metrics.map((m, i) => (
                   <motion.div
                     key={m.label}
@@ -119,7 +132,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.5 + i * 0.07, duration: 0.5, ease: EASE }}
                   >
-                    <p className="font-display text-4xl leading-none text-bone sm:text-5xl" style={{ color: i === 0 ? project.palette.accent : undefined }}>
+                    <p className="font-display text-3xl leading-none text-bone sm:text-4xl" style={{ color: i === 0 ? project.palette.accent : undefined }}>
                       {m.value}
                     </p>
                     <p className="mt-2 text-xs leading-snug text-mist">{m.label}</p>
@@ -130,7 +143,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
 
             <div className="mt-12 grid gap-10 lg:grid-cols-[3fr_2fr]">
               <motion.section variants={block}>
-                <h3 className="mb-4 text-[11px] font-bold uppercase tracking-[0.3em] text-crimson-2">My Contribution</h3>
+                <h3 className="mb-4 text-[11px] font-bold uppercase tracking-[0.3em] text-crimson-2">System Design & Implementation</h3>
                 <ul className="space-y-4">
                   {project.build.map((b) => (
                     <li key={b} className="flex gap-3 text-[15px] leading-relaxed text-bone/85">
@@ -142,7 +155,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
               </motion.section>
               <div className="space-y-10">
                 <motion.section variants={block}>
-                  <h3 className="mb-4 text-[11px] font-bold uppercase tracking-[0.3em] text-crimson-2">Tech Stack</h3>
+                  <h3 className="mb-4 text-[11px] font-bold uppercase tracking-[0.3em] text-crimson-2">Technologies Used</h3>
                   <div className="flex flex-wrap gap-2">
                     {project.stack.map((t) => (
                       <span key={t} className="glass rounded-full px-3 py-1.5 text-sm font-medium text-bone">
@@ -156,7 +169,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
                   <ul className="space-y-2.5">
                     {project.features.map((f) => (
                       <li key={f} className="flex items-start gap-3 text-sm text-bone/85">
-                        <span className="text-crimson-2">✓</span>
+                        <span className="text-crimson-2 font-bold">✓</span>
                         {f}
                       </li>
                     ))}
@@ -167,9 +180,9 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
 
             {/* more like this */}
             <motion.section variants={block} className="mt-14 border-t border-white/10 pt-8">
-              <h3 className="mb-4 font-sans text-lg font-semibold text-bone">More Originals</h3>
+              <h3 className="mb-4 font-sans text-lg font-semibold text-bone">More Projects</h3>
               <div className="grid gap-4 sm:grid-cols-2">
-                {more.map((p) => (
+                {more.slice(0, 4).map((p) => (
                   <button
                     key={p.id}
                     type="button"
